@@ -12,11 +12,16 @@ const int TIME_DIFFERENCE = 24;
 
 QLabelClearTextTimer::QLabelClearTextTimer(QWidget *parent) :
     QLabel(parent),
-    timer_(new QTimer(this))
+    timerInfo_(new QTimer(this)),
+    timerTime_(new QTimer(this))
 {
-    // Соединение сигнала окончания таймера со слотом, где запускается таймер игрового
+    // Соединение сигнала окончания таймера информации со слотом, где запускается таймер
+    // игрового времени
+    connect(timerInfo_, &QTimer::timeout, this, &QLabelClearTextTimer::clearTextInformation);
+
+    // Соединение сигнала окончания таймера игрового времени со слотом обновления игрового
     // времени
-    connect(timer_, &QTimer::timeout, this, &QLabelClearTextTimer::clearTextInformation);
+    connect(timerTime_, &QTimer::timeout, this, &QLabelClearTextTimer::updateTime);
 
     // Запустить отображение игрового времени
     startTime();
@@ -25,23 +30,23 @@ QLabelClearTextTimer::QLabelClearTextTimer(QWidget *parent) :
 // Метод для установки текстовых уведомлений с таймером для их очистки
 void QLabelClearTextTimer::setTextInformation(const QString &text)
 {
-    // Останавливаем таймер, если он был запущен из-за вызова setTime()
-    if(timer_->isActive())
-        timer_->stop();
+    // Останавливаем таймер игрового времени
+    if(timerTime_->isActive())
+        timerTime_->stop();
 
     setStyleSheet("color: green");
 
     setText(text);
 
-    // Запуск таймера
-    timer_->start(DISPLAY_INFORMATION_TIME);
+    // Запуск таймера вывода информации
+    timerInfo_->start(DISPLAY_INFORMATION_TIME);
 }
 
 // Очистка текста и остановка таймера
 void QLabelClearTextTimer::clearTextInformation()
 {
     // остановка таймера
-    timer_->stop();
+    timerInfo_->stop();
 
     clear();
 
@@ -72,15 +77,20 @@ void QLabelClearTextTimer::startTime()
     setText(timeText + gameTime.toString("hh:mm"));
 
     // Запуск таймера
-    timer_->start(GAME_TIME_UPDATE_RATE);
+    timerTime_->start(GAME_TIME_UPDATE_RATE);
 }
 
-// Остановить отображение игрового времени в информаторе
-void QLabelClearTextTimer::stopTime()
+// Обновить игровое время
+void QLabelClearTextTimer::updateTime()
 {
-    // Останавливаем таймер
-    if(timer_->isActive())
-        timer_->stop();
+    startTime();
+}
+
+// Остановить таймеры
+void QLabelClearTextTimer::stopTimers()
+{
+    timerInfo_->stop();
+    timerTime_->stop();
 
     clear();
 }

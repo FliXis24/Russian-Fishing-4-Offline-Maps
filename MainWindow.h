@@ -53,7 +53,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
-    // Вернуть указаель на менеджер карт
+    // Вернуть указатель на менеджер карт
     QPointer<MapsManager> getMapsManagerPtr();
 
 private:

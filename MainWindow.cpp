@@ -324,7 +324,7 @@ void MainWindow::slotCreateGamePoint(const QPointF currentMousePoint)
     createPoint->show();
 }
 
-// Вернуть указаель на менеджер карт
+// Вернуть указатель на менеджер карт
 QPointer<MapsManager> MainWindow::getMapsManagerPtr()
 {
     return mapsManagerPtr_;
@@ -391,8 +391,8 @@ void MainWindow::slotMapsManager()
     ui->textEditPointX->clear();
     ui->textEditPointY->clear();
 
-    // Остановить таймер игрового времени и очистить строку информатора
-    ui->labelInformator->stopTime();
+    // Остановить все таймеры
+    ui->labelInformator->stopTimers();
 
     // Очищаем точки и текущую карту
     WaterBody::getInstance().clearPoint();

@@ -26,18 +26,24 @@ public:
     // Запустить отображение игрового времени в информаторе
     void startTime();
 
-    // Остановить отображение игрового времени в информаторе
-    void stopTime();
+    // Остановить таймеры
+    void stopTimers();
 
 private:
-    // Таймер
-    QTimer *timer_;
+    // Таймер для вывода информации
+    QTimer *timerInfo_;
+
+    // Таймер для вывода игрового времени
+    QTimer *timerTime_;
 
     // Системное время
     QTime currTime_;
 
     // Очистка текста и остановка таймера
     void clearTextInformation();
+
+    // Обновить игровое время
+    void updateTime();
 };
 
 #endif // QLABELCLEARTEXTTIMER_H
