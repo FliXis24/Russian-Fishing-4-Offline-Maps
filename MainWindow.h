@@ -53,6 +53,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
+    // Вернуть указаель на менеджер карт
+    QPointer<MapsManager> getMapsManagerPtr();
+
 private:
     // Устанавливает фиксированный размер ширины QLable в котором находится QPixmap
     // с изображением текущей карты

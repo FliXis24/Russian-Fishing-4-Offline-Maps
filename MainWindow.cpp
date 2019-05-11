@@ -324,6 +324,12 @@ void MainWindow::slotCreateGamePoint(const QPointF currentMousePoint)
     createPoint->show();
 }
 
+// Вернуть указаель на менеджер карт
+QPointer<MapsManager> MainWindow::getMapsManagerPtr()
+{
+    return mapsManagerPtr_;
+}
+
 // Возвращает координаты мыши для центра игровой точки
 QPointF MainWindow::findCenterPoint(const QPointF findPoint)
 {
@@ -385,6 +391,9 @@ void MainWindow::slotMapsManager()
     ui->textEditPointX->clear();
     ui->textEditPointY->clear();
 
+    // Остановить таймер игрового времени и очистить строку информатора
+    ui->labelInformator->stopTime();
+
     // Очищаем точки и текущую карту
     WaterBody::getInstance().clearPoint();
     ui->labelImageMap->setPixmap(QPixmap());
@@ -433,6 +442,9 @@ void MainWindow::slotMapsManager()
 
         ui->textEditPointX->clear();
         ui->textEditPointY->clear();
+
+        // Включить отображение игрового времени
+        ui->labelInformator->startTime();
 
         // Переключение режима отображения в пользу игровых точек
         emit signalSwitchMode();
@@ -708,7 +720,7 @@ void MainWindow::createActionsMenu()
 // Слот текстовых уведомлений
 void MainWindow::slotSetTextInformator(const QString& text)
 {
-    ui->labelInformator->setText(text);
+    ui->labelInformator->setTextInformation(text);
 }
 
 // Слот звуковых уведомлений
