@@ -41,17 +41,22 @@
         <widget class="QComboBox" name="comboBoxTackle">
          <item>
           <property name="text">
+           <string>Any Tackle</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Float Tackle</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>Feeder Tackle</string>
           </property>
          </item>
          <item>
           <property name="text">
            <string>Spinning Tackle</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Float Tackle</string>
           </property>
          </item>
         </widget>
@@ -68,6 +73,11 @@
        </item>
        <item>
         <widget class="QComboBox" name="comboBoxFrom">
+         <item>
+          <property name="text">
+           <string>Any Fishing</string>
+          </property>
+         </item>
          <item>
           <property name="text">
            <string>Shore Fishing</string>
@@ -167,7 +177,7 @@
        <item>
         <widget class="QLineEdit" name="textEditDepth">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="inputMethodHints">
           <set>Qt::ImhDigitsOnly</set>

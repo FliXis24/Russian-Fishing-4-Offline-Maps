@@ -264,7 +264,7 @@ void CreatePoint::confirmEdit(Point* currentPoint)
 // Слот переключение активности поля Глубина взависимости от индекса Тип Ловли
 void CreatePoint::slotDepthEnabledSwitch(int index)
 {
-    if(index == 2)
+    if(index <= 1)
         ui->textEditDepth->setEnabled(true);
     else {
         ui->textEditDepth->clear();
