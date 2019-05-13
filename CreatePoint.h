@@ -14,7 +14,10 @@ class CreatePoint : public QWidget
 
 public:
     CreatePoint(const QPointF &gamePoint, const QPointF &mousePoint, const QPair<double, double> mousePercents, QWidget *parent = nullptr);
+
+    // На основе существующей точки при ее редактировании
     CreatePoint(Point *point, QWidget *parent = nullptr);
+
     ~CreatePoint();
 
 private:

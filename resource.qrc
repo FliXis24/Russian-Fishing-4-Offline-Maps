@@ -6,5 +6,9 @@
         <file alias="image/point-20.png">resource/image/point-20.png</file>
         <file alias="image/point-24.png">resource/image/point-24.png</file>
         <file alias="image/point-32.png">resource/image/point-32.png</file>
+        <file alias="image/point-priority-16.png">resource/image/point-priority-16.png</file>
+        <file alias="image/point-priority-20.png">resource/image/point-priority-20.png</file>
+        <file alias="image/point-priority-24.png">resource/image/point-priority-24.png</file>
+        <file alias="image/point-priority-32.png">resource/image/point-priority-32.png</file>
     </qresource>
 </RCC>

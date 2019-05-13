@@ -7,9 +7,16 @@
 #include "CreatePoint.h"
 #include "MainWindow.h"
 
-Point::Point(QPair<double, double> mousePercents, QPointF gamePoint, QWidget *parent, QPointF mousePoint) :
+Point::Point(
+        int highPriority,
+        QPair<double, double> mousePercents,
+        QPointF gamePoint,
+        QWidget *parent,
+        QPointF mousePoint
+    ) :
     QWidget(parent),
     ui(new Ui::Point),
+    highPriority_(highPriority),
     mousePercents_(mousePercents),
     gamePoint_(gamePoint),
     mousePoint_(mousePoint)
@@ -118,7 +125,6 @@ void Point::setNewMousePoint(QPointF& mousePoint)
 void Point::slotEditPoint(Point* currentPoint)
 {
     CreatePoint* createPoint = new CreatePoint(currentPoint, this);
-
     createPoint->show();
 }
 
@@ -162,9 +168,15 @@ QLabel *Point::getLabelImagePoint()
 }
 
 // Возвращает указатель на виджет с текстовыми координатами точки у точки
-QLabel* Point::getLabelTextGamePoint()
+QLabel *Point::getLabelTextGamePoint()
 {
     return ui->textGamePoint;
+}
+
+// Вернуть приоритет
+int &Point::getPriority()
+{
+    return highPriority_;
 }
 
 // Установка настроек цвета и размера шрифта, и размера изображения точки
@@ -183,6 +195,9 @@ void Point::setPointAttributes()
     font.setPointSize(pointFontSize);
     ui->textGamePoint->setFont(font);
 
-    // Размер изображения точки
-    ui->imagePoint->setPixmap(QPixmap("://image/point-" + QString::number(pointImageSize)));
+    // Размер изображения точки и тип приоритета
+    QString priority;
+    if(highPriority_)
+        priority = "priority-";
+    ui->imagePoint->setPixmap(QPixmap("://image/point-" + priority + QString::number(pointImageSize)));
 }

@@ -169,24 +169,26 @@ void WaterBody::writePointsInFile() const
         QTextStream stream(&file);
 
         const QChar separator = ':';
-        const QChar separetorEnd = ';';
+        //const QChar separatorEnd = ';';
 
         for(const auto& it : currentMapPoints_)
         {
-            stream << it.second->getMousePercents().first << separator
+            stream << it.second->getPriority() << separator
+                   << it.second->getMousePercents().first << separator
                    << it.second->getMousePercents().second << separator
                    << it.second->getGamePoint().x() << separator
                    << it.second->getGamePoint().y() << separator
                    << it.second->typeTackle << separator
                    << it.second->from << separator
-                   << it.second->rigs << separator
                    << it.second->fish << separator
                    << it.second->baits << separator
+                   << it.second->rigs << separator
                    << it.second->note << separator
                    << it.second->flyCasting << separator
                    << it.second->distance << separator
                    << it.second->depth << separator
-                   << it.second->unwantedFish << separator << separetorEnd << endl;
+                   << it.second->groundbaits << separator
+                   << it.second->unwantedFish << separator /*<< separatorEnd*/ << endl;
 
             file.flush();
         }
@@ -229,26 +231,28 @@ void WaterBody::readFilePoint()
             QString strPoint = file.readLine();
             QStringList listPoint = strPoint.split(":");
 
-            if(!isValidPercentPoint(listPoint.at(0).toDouble(), listPoint.at(1).toDouble()))
+            if(!isValidPercentPoint(listPoint.at(1).toDouble(), listPoint.at(2).toDouble()))
                 continue;
-            if(!isValidGamePoint(listPoint.at(2).toDouble(), listPoint.at(3).toDouble()))
+            if(!isValidGamePoint(listPoint.at(3).toDouble(), listPoint.at(4).toDouble()))
                 continue;
 
             Point* point = new Point(
-                QPair<double, double>(listPoint.at(0).toDouble(), listPoint.at(1).toDouble()),
-                QPointF(qRound(listPoint.at(2).toDouble()), qRound(listPoint.at(3).toDouble())),
+                listPoint.at(0).toInt(),
+                QPair<double, double>(listPoint.at(1).toDouble(), listPoint.at(2).toDouble()),
+                QPointF(qRound(listPoint.at(3).toDouble()), qRound(listPoint.at(4).toDouble())),
                 labelImageMapPtr_
             );
-            point->typeTackle = listPoint.at(4).toInt();
-            point->from = listPoint.at(5).toInt();
-            point->rigs = listPoint.at(6);
+            point->typeTackle = listPoint.at(5).toInt();
+            point->from = listPoint.at(6).toInt();
             point->fish = listPoint.at(7);
             point->baits = listPoint.at(8);
-            point->note = listPoint.at(9);
-            point->flyCasting = listPoint.at(10);
-            point->distance = listPoint.at(11);
-            point->depth = listPoint.at(12);
-            point->unwantedFish = listPoint.at(13);
+            point->rigs = listPoint.at(9);
+            point->note = listPoint.at(10);
+            point->flyCasting = listPoint.at(11);
+            point->distance = listPoint.at(12);
+            point->depth = listPoint.at(13);
+            point->groundbaits = listPoint.at(14);
+            point->unwantedFish = listPoint.at(15);
 
             currentMapPoints_[point->getID()] = point;
         }
@@ -481,11 +485,17 @@ void WaterBody::setPointsImageSize(const int &imageSize)
     // Записываем изменение в синглтон
     pointImageSize_ = imageSize;
 
+    QString priority;
+
     for(auto it : currentMapPoints_) {
-        it.second->getLabelImagePoint()->setPixmap(QPixmap("://image/point-" + QString::number(pointImageSize_)));
+        if(it.second->getPriority())
+            priority = "priority-";
+        it.second->getLabelImagePoint()->setPixmap(QPixmap("://image/point-" + priority + QString::number(pointImageSize_)));
 
         // Чтобы виджет точки занимал минимально возможный размер
         it.second->resize(it.second->sizeHint());
+
+        priority = "";
     }
 
     // Если меняется размер изображения точек, то необходимо внести поправки и в геометрию

@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>245</height>
+    <width>600</width>
+    <height>311</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>245</height>
+    <height>311</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>245</height>
+    <height>311</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -34,215 +34,248 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <widget class="QComboBox" name="comboBoxTackle">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <item>
-        <widget class="QComboBox" name="comboBoxTackle">
-         <item>
-          <property name="text">
-           <string>Any Tackle</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Float Tackle</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Feeder Tackle</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Spinning Tackle</string>
-          </property>
-         </item>
-        </widget>
+        <property name="text">
+         <string>Any Tackle</string>
+        </property>
        </item>
        <item>
-        <widget class="QLabel" name="labelRigs">
-         <property name="text">
-          <string>Rigs:</string>
-         </property>
-        </widget>
+        <property name="text">
+         <string>Float Tackle</string>
+        </property>
        </item>
        <item>
-        <widget class="QLineEdit" name="textEditRigs"/>
+        <property name="text">
+         <string>Feeder Tackle</string>
+        </property>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBoxFrom">
-         <item>
-          <property name="text">
-           <string>Any Fishing</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Shore Fishing</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Boat Fishing</string>
-          </property>
-         </item>
-        </widget>
+        <property name="text">
+         <string>Spinning Tackle</string>
+        </property>
        </item>
-      </layout>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="labelFish">
-         <property name="text">
-          <string>Fish:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="textEditFish"/>
-       </item>
-      </layout>
+      <widget class="QCheckBox" name="checkBoxHighPriority">
+       <property name="text">
+        <string>High Priority</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <widget class="QComboBox" name="comboBoxFrom">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <item>
-        <widget class="QLabel" name="labelBaits">
-         <property name="text">
-          <string>Baits:</string>
-         </property>
-        </widget>
+        <property name="text">
+         <string>Any Fishing</string>
+        </property>
        </item>
        <item>
-        <widget class="QLineEdit" name="textEditBaits"/>
+        <property name="text">
+         <string>Shore Fishing</string>
+        </property>
        </item>
-      </layout>
+       <item>
+        <property name="text">
+         <string>Boat Fishing</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <widget class="QLabel" name="labelFish">
+       <property name="text">
+        <string>Fish:</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QLabel" name="labelNote">
-         <property name="text">
-          <string>Note:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="textEditNote"/>
-       </item>
-      </layout>
+      <widget class="QLineEdit" name="textEditFish"/>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QLabel" name="labelBaits">
+       <property name="text">
+        <string>Baits:</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_5">
-       <item>
-        <widget class="QLabel" name="labelFlyCasting">
-         <property name="inputMethodHints">
-          <set>Qt::ImhNone</set>
-         </property>
-         <property name="text">
-          <string>Fly Casting:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="textEditFlyCasting">
-         <property name="inputMethodHints">
-          <set>Qt::ImhNone</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelDistance">
-         <property name="text">
-          <string>Distance:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="textEditDistance">
-         <property name="inputMethodHints">
-          <set>Qt::ImhDigitsOnly</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelDepth">
-         <property name="text">
-          <string>Depth:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="textEditDepth">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="inputMethodHints">
-          <set>Qt::ImhDigitsOnly</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QLineEdit" name="textEditBaits"/>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="labelRigs">
+       <property name="text">
+        <string>Rigs:</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <item>
-        <widget class="QLabel" name="labelUnwantedFish">
-         <property name="text">
-          <string>Unwanted Fish:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="textEditUnwantedFish"/>
-       </item>
-      </layout>
+      <widget class="QLineEdit" name="textEditRigs"/>
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="labelNote">
+       <property name="text">
+        <string>Note:</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QPushButton" name="pushButtonDeletePoint">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>Delete Point</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>198</width>
-           <height>22</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButtonConfirm">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="text">
-          <string>Create</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButtonCancel">
-         <property name="text">
-          <string>Cancel</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QLineEdit" name="textEditNote"/>
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="labelFlyCasting">
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+       <property name="text">
+        <string>Fly Casting:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="textEditFlyCasting">
+       <property name="inputMethodHints">
+        <set>Qt::ImhNone</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelDistance">
+       <property name="text">
+        <string>Distance:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="textEditDistance">
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelDepth">
+       <property name="text">
+        <string>Depth:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="textEditDepth">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="labelGroundbaits">
+       <property name="text">
+        <string>Groundbaits:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="textEditGroundbaits"/>
+     </item>
+    </layout>
+   </item>
+   <item row="7" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="labelUnwantedFish">
+       <property name="text">
+        <string>Unwanted Fish:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="textEditUnwantedFish"/>
+     </item>
+    </layout>
+   </item>
+   <item row="8" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButtonDeletePoint">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Delete Point</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>182</width>
+         <height>22</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonConfirm">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>Create</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonCancel">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

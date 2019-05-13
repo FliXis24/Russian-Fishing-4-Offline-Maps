@@ -34,9 +34,9 @@ CreatePoint::CreatePoint(const QPointF& gamePoint, const QPointF &mousePoint, co
     setWindowTitle(WaterBody::getInstance().getMapName() + " " + nameGamePoint);
 
     // Валидатор для поля дистанции point 0-999
-    ui->textEditDistance->setValidator(new QIntValidator(0, 999, this));
+    //ui->textEditDistance->setValidator(new QIntValidator(0, 999, this));
     // Валидатор для поля глубины 0-9999
-    ui->textEditDepth->setValidator(new QIntValidator(0, 9999, this));
+    //ui->textEditDepth->setValidator(new QIntValidator(0, 9999, this));
 
     ui->pushButtonConfirm->setAutoDefault(true);
     ui->pushButtonConfirm->setFocus();
@@ -56,6 +56,7 @@ CreatePoint::CreatePoint(const QPointF& gamePoint, const QPointF &mousePoint, co
         connect(this, &CreatePoint::signalPlaySound, mainWindow, &MainWindow::slotPlaySound);
 }
 
+// На основе существующей точки при ее редактировании
 CreatePoint::CreatePoint(Point* point, QWidget *parent) :
     QWidget(parent),
     gameCurrentPoint_(point->getGamePoint()), mouseCurrentPoint_(point->getMousePoint()),
@@ -85,9 +86,9 @@ CreatePoint::CreatePoint(Point* point, QWidget *parent) :
     setWindowTitle(WaterBody::getInstance().getMapName() + " " + nameGamePoint);
 
     // Валидатор для поля дистанции point 0-999
-    ui->textEditDistance->setValidator(new QIntValidator(0, 999, this));
+    //ui->textEditDistance->setValidator(new QIntValidator(0, 999, this));
     // Валидатор для поля глубины 0-9999
-    ui->textEditDepth->setValidator(new QIntValidator(0, 9999, this));
+    //ui->textEditDepth->setValidator(new QIntValidator(0, 9999, this));
 
     ui->pushButtonConfirm->setText(tr("Edit"));
     ui->pushButtonConfirm->setEnabled(false);
@@ -98,14 +99,16 @@ CreatePoint::CreatePoint(Point* point, QWidget *parent) :
     ui->pushButtonDeletePoint->setEnabled(true);
 
     ui->comboBoxTackle->setCurrentIndex(point->typeTackle);
-    ui->textEditRigs->setText(point->rigs);
+    ui->checkBoxHighPriority->setChecked(point->getPriority());
     ui->comboBoxFrom->setCurrentIndex(point->from);
     ui->textEditFish->setText(point->fish);
     ui->textEditBaits->setText(point->baits);
+    ui->textEditRigs->setText(point->rigs);
     ui->textEditNote->setText(point->note);
     ui->textEditFlyCasting->setText(point->flyCasting);
     ui->textEditDistance->setText(point->distance);
     ui->textEditDepth->setText(point->depth);
+    ui->textEditGroundbaits->setText(point->groundbaits);
     ui->textEditUnwantedFish->setText(point->unwantedFish);
 
     slotDepthEnabledSwitch(point->typeTackle);
@@ -121,14 +124,16 @@ CreatePoint::CreatePoint(Point* point, QWidget *parent) :
 
     // Если поля изменились, то отправляется сигнал включающий кнопку подтверждения
     connect(ui->comboBoxTackle, qOverload<int>(&QComboBox::currentIndexChanged), this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
+    connect(ui->checkBoxHighPriority, &QCheckBox::stateChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->comboBoxFrom, qOverload<int>(&QComboBox::currentIndexChanged), this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
-    connect(ui->textEditRigs, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditFish, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditBaits, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
+    connect(ui->textEditRigs, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditNote, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditFlyCasting, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditDistance, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditDepth, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
+    connect(ui->textEditGroundbaits, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
     connect(ui->textEditUnwantedFish, &QLineEdit::textChanged, this, [this](){ ui->pushButtonConfirm->setEnabled(true); });
 
     // Соединяет сигнал текстовых уведомлений со своим слотом
@@ -182,20 +187,22 @@ void CreatePoint::slotConfirmCreate()
         return;
 
     Point *point = new Point(
+        ui->checkBoxHighPriority->isChecked(),
         mouseCurrentPercents_,
         gameCurrentPoint_,
         WaterBody::getInstance().getLabelImageMapPtr(),
         mouseCurrentPoint_
     );
     point->typeTackle = ui->comboBoxTackle->currentIndex();
-    point->rigs = ui->textEditRigs->text();
     point->from = ui->comboBoxFrom->currentIndex();
     point->fish = ui->textEditFish->text();
     point->baits = ui->textEditBaits->text();
+    point->rigs = ui->textEditRigs->text();
     point->note = ui->textEditNote->text();
     point->flyCasting = ui->textEditFlyCasting->text();
     point->distance = ui->textEditDistance->text();
     point->depth = ui->textEditDepth->text();
+    point->groundbaits = ui->textEditGroundbaits->text();
     point->unwantedFish = ui->textEditUnwantedFish->text();
 
     // Запись новой точки в коллекцию
@@ -224,19 +231,21 @@ void CreatePoint::confirmEdit(Point* currentPoint)
         return;
 
     Point *point = new Point(
+        ui->checkBoxHighPriority->isChecked(),
         mouseCurrentPercents_,
         gameCurrentPoint_,
         WaterBody::getInstance().getLabelImageMapPtr()
     );
     point->typeTackle = ui->comboBoxTackle->currentIndex();
-    point->rigs = ui->textEditRigs->text();
     point->from = ui->comboBoxFrom->currentIndex();
     point->fish = ui->textEditFish->text();
     point->baits = ui->textEditBaits->text();
+    point->rigs = ui->textEditRigs->text();
     point->note = ui->textEditNote->text();
     point->flyCasting = ui->textEditFlyCasting->text();
     point->distance = ui->textEditDistance->text();
     point->depth = ui->textEditDepth->text();
+    point->groundbaits = ui->textEditGroundbaits->text();
     point->unwantedFish = ui->textEditUnwantedFish->text();
 
     // Запись новой точки в коллекцию
@@ -264,10 +273,25 @@ void CreatePoint::confirmEdit(Point* currentPoint)
 // Слот переключение активности поля Глубина взависимости от индекса Тип Ловли
 void CreatePoint::slotDepthEnabledSwitch(int index)
 {
-    if(index <= 1)
+    switch (index) {
+    case 0: // Любая снасть
         ui->textEditDepth->setEnabled(true);
-    else {
+        ui->textEditGroundbaits->setEnabled(true);
+        break;
+    case 1: // Поплавочная снасть
+        ui->textEditDepth->setEnabled(true);
+        ui->textEditGroundbaits->setEnabled(true);
+        break;
+    case 2: // Фидерная снасть
+        ui->textEditGroundbaits->setEnabled(true);
         ui->textEditDepth->clear();
         ui->textEditDepth->setEnabled(false);
+        break;
+    case 3: // Спиннинговая снасть
+        ui->textEditGroundbaits->clear();
+        ui->textEditGroundbaits->setEnabled(false);
+        ui->textEditDepth->clear();
+        ui->textEditDepth->setEnabled(false);
+        break;
     }
 }

@@ -16,7 +16,14 @@ class Point : public QWidget
     Q_OBJECT
 
 public:
-    Point(QPair<double, double> mousePercents_, QPointF gamePoint, QWidget *parent = nullptr, QPointF mousePoint_ = QPointF(-1, -1));
+    Point(
+        int highPriority,
+        QPair<double, double> mousePercents,
+        QPointF gamePoint,
+        QWidget *parent = nullptr,
+        QPointF mousePoint = QPointF(-1, -1)
+    );
+
     ~Point() override;
 
     // Установить координаты мыши для точки
@@ -35,6 +42,9 @@ public:
     // Вернуть уникальный идентификатор точки
     const int &getID() const;
 
+    // Вернуть приоритет
+    int &getPriority();
+
     // Возвращает указатель на виджет изображения точки у точки
     QLabel* getLabelImagePoint();
 
@@ -42,14 +52,15 @@ public:
     QLabel* getLabelTextGamePoint();
 
     int typeTackle;       // Тип снасти
-    QString rigs;         // Тип оснастки
     int from;             // Лодка/Берег
     QString fish;         // Рыба
     QString baits;        // Наживка/Приманка
+    QString rigs;         // Тип оснастки
     QString note;         // Заметка
     QString flyCasting;   // Направление заброса
     QString distance;     // Дальность заброса
     QString depth;        // Глубина
+    QString groundbaits;  // Прикормка
     QString unwantedFish; // Нежелательная рыба
 
 protected:
@@ -67,11 +78,11 @@ protected:
 private:
     Ui::Point *ui;
 
-    // Установить уникальный идентификатор для точки
-    int setIndexNumber();
-
     // Уникальный идентификатор точки
     int id_;
+
+    // Высокий приоритет
+    int highPriority_;
 
     // Процентное соотношение координат мыши относительно области окна карты
     const QPair<double, double> mousePercents_;
@@ -81,6 +92,9 @@ private:
 
     // Координаты мыши
     QPointF mousePoint_;
+
+    // Установить уникальный идентификатор для точки
+    int setIndexNumber();
 
     // Установка настроек цвета и размера шрифта, и размера изображения точки
     void setPointAttributes();
