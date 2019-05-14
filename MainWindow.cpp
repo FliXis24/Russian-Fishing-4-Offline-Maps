@@ -105,6 +105,14 @@ MainWindow::MainWindow(QWidget *parent) :
     // Выставляем громкость
     effect_.setVolume(VOLUME);
 
+    // Подсказки по сторонам света
+    ui->labelTextCompass->setText(tr(
+        "top - <font color=red>N</font><b>orth</b>, "
+        "bottom - <font color=red>S</font><b>outh</b>, "
+        "left - <font color=red>W</font><b>est</b>, "
+        "right - <font color=red>E</font><b>ast</b>"
+    ));
+
     // Считываем все настройки из файла
     readAllSettings();
 }
